@@ -1,0 +1,32 @@
+[
+  {
+    "prompt_id":"PELS-L1-CREATE-043-SYN",
+    "prompt_text":"give me a plot twist involving a broken clock",
+    "domain":"CREATE",
+    "source":"3judge_consensus",
+    "review_status":"candidate_needs_sme_signoff",
+    "c1":10.0,
+    "c2":10.0,
+    "c3":10.0,
+    "c4":8.0,
+    "c5":10.0,
+    "c6":8.0,
+    "final_score":9.4,
+    "skill_level":"strong"
+  },
+  {
+    "prompt_id":"PELS-L1-EDU-026-SYN",
+    "prompt_text":"You are a history department curriculum designer. Draft a lesson plan segment explaining the long-term causes of the Cold War, covering ideological, economic, and military dimensions. Format the output as three labeled sections with one key event as evidence per section, and add a short caution to students that historical interpretation of Cold War causes varies by country and source, so claims should be cross-checked rather than treated as settled fact.",
+    "domain":"EDU",
+    "source":"3judge_consensus",
+    "review_status":"candidate_needs_sme_signoff",
+    "c1":10.0,
+    "c2":10.0,
+    "c3":10.0,
+    "c4":9.0,
+    "c5":9.5,
+    "c6":8.0,
+    "final_score":9.53,
+    "skill_level":"strong"
+  }
+]
