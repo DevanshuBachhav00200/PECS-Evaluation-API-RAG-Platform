@@ -1,0 +1,4 @@
+split_a,split_b,prompt_id_overlap_count,exact_prompt_text_overlap_count,near_duplicate_count,max_similarity,near_duplicate_examples,leakage_free_at_threshold,note
+train,validation,14,0,0,0.0,,True,prompt_id overlaps are identifier reuse and are not treated as leakage when prompt text is distinct
+train,test,14,0,0,0.0,,True,prompt_id overlaps are identifier reuse and are not treated as leakage when prompt text is distinct
+validation,test,1,0,0,0.0,,True,prompt_id overlaps are identifier reuse and are not treated as leakage when prompt text is distinct

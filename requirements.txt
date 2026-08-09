@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+
+pandas
+numpy
+scikit-learn
+
+sentence-transformers
+chromadb
+anthropic
+
+pytest
+httpx
+# Member 2 input/output support
+openpyxl

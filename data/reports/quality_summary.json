@@ -1,0 +1,36 @@
+{
+  "cleaned_rows": 331,
+  "train_rows": 241,
+  "validation_rows": 51,
+  "test_rows": 39,
+  "domains_cleaned": [
+    "CODE",
+    "EDGE"
+  ],
+  "domains_master": [
+    "CAREER",
+    "CODE",
+    "CREATE",
+    "EDGE",
+    "EDU",
+    "GEN"
+  ],
+  "domains_with_3judge_consensus": [
+    "CREATE",
+    "EDU"
+  ],
+  "domains_missing_3judge_coverage": [
+    "CAREER",
+    "CODE",
+    "EDGE",
+    "GEN"
+  ],
+  "formula_errors": 0,
+  "duplicate_prompt_id_rows": 140,
+  "source_formula_correct_false_count": 1,
+  "score_range_errors": 0,
+  "skill_level_mismatches": 0,
+  "consistency_flagged": 0,
+  "gold_eval_is_test_split": true,
+  "human_review_status": "pending_sme_signoff"
+}

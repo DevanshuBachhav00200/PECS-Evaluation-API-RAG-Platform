@@ -1,0 +1,8 @@
+Check,Value
+Total rows,331
+Exact duplicates removed,0
+Near-duplicate pairs found,0
+Short prompts (<10 words),92
+Kappa flags (YES),159
+Formula errors,1
+Invalid strong labels,0

@@ -1,0 +1,119 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import shutil
+import pandas as pd
+
+from pecs_member2.validation import validate_annotation_frame, leakage_report
+from pecs_member2.consistency import flag_consistency
+from pecs_member2.agreement import agreement_by_criterion
+from pecs_member2.scoring import skill_level, weighted_score
+import hashlib
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "data" / "source"
+PROCESSED = ROOT / "data" / "processed"
+REPORTS = ROOT / "data" / "reports"
+
+
+def find(name: str) -> Path:
+    p = SRC / name
+    if not p.exists():
+        raise FileNotFoundError(p)
+    return p
+
+
+def main() -> None:
+    PROCESSED.mkdir(parents=True, exist_ok=True)
+    REPORTS.mkdir(parents=True, exist_ok=True)
+
+    cleaned = pd.read_excel(find("Combined_dataset_CLEANED_v2(2).xlsx"))
+    validated = validate_annotation_frame(cleaned)
+    checked = flag_consistency(validated)
+    checked["record_id"] = checked.apply(
+        lambda r: hashlib.sha256(
+            f"{r.get('prompt_id','')}|{r.get('prompt_text','')}|{r.get('domain','')}|{r.get('source_log_id','')}|{r.get('dataset_split','')}".encode("utf-8")
+        ).hexdigest()[:16], axis=1
+    )
+
+    checked.to_csv(PROCESSED / "annotations_normalized.csv", index=False)
+    checked[checked.dataset_split == "validation"].to_csv(PROCESSED / "validation_set.csv", index=False)
+    checked[checked.dataset_split == "test"].to_csv(PROCESSED / "gold_eval_set.csv", index=False)
+
+    leakage = leakage_report(checked)
+    leakage.to_csv(REPORTS / "leakage_report.csv", index=False)
+
+    # 3-judge agreement artifact.
+    consensus = pd.read_excel(find("PELS_3Judge_Consensus_88rows(1).xlsx"))
+    agreement = agreement_by_criterion(consensus)
+    agreement.to_csv(REPORTS / "3judge_kappa.csv", index=False)
+
+    # Build calibration seed from consensus rows where a 3-judge consensus exists.
+    master = pd.read_excel(find("Combined_dataset_700_MASTER_v2(2).xlsx"))
+    edu_syn = pd.read_excel(find("Synthetic_Prompts_EDU_batch2_CLAUDE_SCORED_FIXED(1).xlsx"))
+    prompt_text = pd.concat([
+        master[["prompt_id", "prompt_text", "domain", "skill_level"]],
+        edu_syn[["prompt_id", "prompt_text", "domain", "skill_level"]],
+    ], ignore_index=True).drop_duplicates("prompt_id")
+    joined = consensus.merge(prompt_text, on="prompt_id", how="left")
+
+    seed = []
+    for _, r in joined.iterrows():
+        scores = {f"c{i}": float(r[f"cons_c{i}"]) for i in range(1, 7)}
+        composite = weighted_score(scores)
+        seed.append({
+            "prompt_id": r.prompt_id,
+            "prompt_text": r.get("prompt_text"),
+            "domain": r.get("domain"),
+            "source": "3judge_consensus",
+            "review_status": "candidate_needs_sme_signoff",
+            "c1": scores["c1"], "c2": scores["c2"], "c3": scores["c3"],
+            "c4": scores["c4"], "c5": scores["c5"], "c6": scores["c6"],
+            "final_score": composite,
+            "skill_level": skill_level(composite),
+        })
+    seed_df = pd.DataFrame(seed)
+
+    # A conservative automatic candidate selection: strongest composite per available domain.
+    approved_seed = seed_df.sort_values(["domain", "final_score"], ascending=[True, False]).groupby("domain", dropna=False).head(1)
+    approved_seed.to_json(PROCESSED / "gold_calibration_seed.json", orient="records", indent=2)
+
+    domains_in_master = set(master.domain.dropna().astype(str).str.upper())
+    domains_with_consensus = set(seed_df.domain.dropna().astype(str).str.upper())
+    missing_domains = sorted(domains_in_master - domains_with_consensus)
+    missing = master[master.domain.astype(str).str.upper().isin(missing_domains)].copy()
+    if not missing.empty:
+        # Candidate list only; never label as approved gold.
+        candidate = missing.sort_values("final_score", ascending=False).groupby("domain", dropna=False).head(3)
+        candidate[["prompt_id", "prompt_text", "domain", "skill_level", "final_score", "status", "score_source"]].to_csv(
+            PROCESSED / "gold_calibration_candidates_needing_review.csv", index=False
+        )
+
+    quality = {
+        "cleaned_rows": int(len(cleaned)),
+        "train_rows": int((cleaned.dataset_split == "train").sum()),
+        "validation_rows": int((cleaned.dataset_split == "validation").sum()),
+        "test_rows": int((cleaned.dataset_split == "test").sum()),
+        "domains_cleaned": sorted(cleaned.domain.dropna().astype(str).str.upper().unique().tolist()),
+        "domains_master": sorted(domains_in_master),
+        "domains_with_3judge_consensus": sorted(domains_with_consensus),
+        "domains_missing_3judge_coverage": missing_domains,
+        "formula_errors": int(checked.final_score_error.sum()),
+        "duplicate_prompt_id_rows": int(cleaned.prompt_id.duplicated(keep=False).sum()),
+        "source_formula_correct_false_count": int((cleaned.get("formula_correct", pd.Series([True] * len(cleaned))) == False).sum()),
+        "score_range_errors": int(checked.score_range_error.sum()),
+        "skill_level_mismatches": int(checked.skill_level_mismatch.sum()),
+        "consistency_flagged": int(checked.needs_review.sum()),
+        "gold_eval_is_test_split": True,
+        "human_review_status": "pending_sme_signoff",
+    }
+    (REPORTS / "quality_summary.json").write_text(json.dumps(quality, indent=2), encoding="utf-8")
+    checked[checked.needs_review][["prompt_id", "domain", "skill_level", "final_score", "consistency_flag"]].to_csv(REPORTS / "consistency_report.csv", index=False)
+
+    # Empty audit trail with schema header is intentionally not created: audit events must be real events.
+    print(json.dumps(quality, indent=2))
+
+
+if __name__ == "__main__":
+    main()
