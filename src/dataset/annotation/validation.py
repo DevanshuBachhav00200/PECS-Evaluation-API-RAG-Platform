@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from src.common.normalization import normalize_text
 from difflib import SequenceMatcher
 import re
 import pandas as pd
@@ -9,8 +9,7 @@ from .scoring import skill_level, weighted_score
 
 
 def normalize_prompt(text: str) -> str:
-    text = str(text).lower().strip()
-    return re.sub(r"\s+", " ", text)
+    return normalize_text(text)
 
 
 def validate_annotation_frame(df: pd.DataFrame) -> pd.DataFrame:
