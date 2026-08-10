@@ -8,6 +8,7 @@ from src.vectorstore.client import get_client
 from src.vectorstore.upsert import upsert_record
 from src.vectorstore.retrieve import retrieve
 from src.vectorstore.filtered_retrieve import filtered_retrieve
+from src.vectorstore.bulk_ingest import bulk_ingest_from_serialized
 
 __all__ = [
     "get_chroma_db_path",
@@ -22,4 +23,5 @@ __all__ = [
     "upsert_record",
     "retrieve",
     "filtered_retrieve",
+    "bulk_ingest_from_serialized",
 ]
