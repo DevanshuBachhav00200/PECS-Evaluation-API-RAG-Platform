@@ -1,5 +1,6 @@
 """
 Unit tests for VDB-009 — Top-K Retrieval Function.
+Extended for VDB-011 — Retrieval Test Cases & Metadata Preservation.
 """
 
 from __future__ import annotations
@@ -282,3 +283,261 @@ def test_production_db_not_modified(
     # Passes collection explicitly — the production PersistentClient is never touched
     result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
     assert result["ids"][0] == ["record-A"]
+
+
+# ===========================================================================
+# VDB-011 — Retrieval Test Cases & Metadata Preservation
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# VDB-011-1: Known vector returns nearest record (ID preservation)
+# ---------------------------------------------------------------------------
+
+def test_vdb011_id_preservation_record_a(seeded_collection: chromadb.Collection) -> None:
+    """Querying with EMBEDDING_A must return exactly record-A as the top ID."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+    assert result["ids"][0][0] == "record-A"
+
+
+def test_vdb011_id_preservation_record_b(seeded_collection: chromadb.Collection) -> None:
+    """Querying with EMBEDDING_B must return exactly record-B as the top ID."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_B, n_results=1, collection=seeded_collection)
+    assert result["ids"][0][0] == "record-B"
+
+
+def test_vdb011_id_preservation_record_c(seeded_collection: chromadb.Collection) -> None:
+    """Querying with EMBEDDING_C must return exactly record-C as the top ID."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_C, n_results=1, collection=seeded_collection)
+    assert result["ids"][0][0] == "record-C"
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-2: Document preservation
+# ---------------------------------------------------------------------------
+
+def test_vdb011_document_preserved_record_a(seeded_collection: chromadb.Collection) -> None:
+    """Document returned for record-A must be byte-for-byte identical to what was ingested."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+    assert result["documents"][0][0] == DOC_A
+
+
+def test_vdb011_document_preserved_record_b(seeded_collection: chromadb.Collection) -> None:
+    """Document returned for record-B must be byte-for-byte identical to what was ingested."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_B, n_results=1, collection=seeded_collection)
+    assert result["documents"][0][0] == DOC_B
+
+
+def test_vdb011_document_preserved_record_c(seeded_collection: chromadb.Collection) -> None:
+    """Document returned for record-C must be byte-for-byte identical to what was ingested."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_C, n_results=1, collection=seeded_collection)
+    assert result["documents"][0][0] == DOC_C
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-3: Complete 10-field VDB-004 metadata preservation
+# ---------------------------------------------------------------------------
+
+def test_vdb011_all_ten_metadata_fields_preserved_record_a(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """
+    Verify all ten VDB-004 metadata fields are returned unchanged for record-A.
+
+    Fields: domain, level, c1, c2, c3, c4, c5, c6, source, version.
+    """
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+    meta = result["metadatas"][0][0]
+
+    # String fields
+    assert meta["domain"]  == META_A["domain"],  f"domain mismatch: {meta['domain']!r}"
+    assert meta["level"]   == META_A["level"],   f"level mismatch: {meta['level']!r}"
+    assert meta["source"]  == META_A["source"],  f"source mismatch: {meta['source']!r}"
+    assert meta["version"] == META_A["version"], f"version mismatch: {meta['version']!r}"
+
+    # Numeric score fields c1–c6
+    for key in ("c1", "c2", "c3", "c4", "c5", "c6"):
+        assert meta[key] == META_A[key], f"{key} mismatch: got {meta[key]}, expected {META_A[key]}"
+
+
+def test_vdb011_all_ten_metadata_fields_preserved_record_b(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """Verify all ten VDB-004 metadata fields are returned unchanged for record-B."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_B, n_results=1, collection=seeded_collection)
+    meta = result["metadatas"][0][0]
+
+    assert meta["domain"]  == META_B["domain"]
+    assert meta["level"]   == META_B["level"]
+    assert meta["source"]  == META_B["source"]
+    assert meta["version"] == META_B["version"]
+    for key in ("c1", "c2", "c3", "c4", "c5", "c6"):
+        assert meta[key] == META_B[key], f"{key} mismatch: got {meta[key]}, expected {META_B[key]}"
+
+
+def test_vdb011_all_ten_metadata_fields_preserved_record_c(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """Verify all ten VDB-004 metadata fields are returned unchanged for record-C."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_C, n_results=1, collection=seeded_collection)
+    meta = result["metadatas"][0][0]
+
+    assert meta["domain"]  == META_C["domain"]
+    assert meta["level"]   == META_C["level"]
+    assert meta["source"]  == META_C["source"]
+    assert meta["version"] == META_C["version"]
+    for key in ("c1", "c2", "c3", "c4", "c5", "c6"):
+        assert meta[key] == META_C[key], f"{key} mismatch: got {meta[key]}, expected {META_C[key]}"
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-4: Metadata type preservation
+# ---------------------------------------------------------------------------
+
+def test_vdb011_metadata_types_preserved(seeded_collection: chromadb.Collection) -> None:
+    """
+    Verify that c1-c6 remain numeric and that string fields remain str.
+    ChromaDB must not silently coerce types.
+    """
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+    meta = result["metadatas"][0][0]
+
+    # String fields must be str
+    assert isinstance(meta["domain"],  str), "domain must be str"
+    assert isinstance(meta["level"],   str), "level must be str"
+    assert isinstance(meta["source"],  str), "source must be str"
+    assert isinstance(meta["version"], str), "version must be str"
+
+    # Score fields must be numeric (int or float — ChromaDB may upcast int to float)
+    for key in ("c1", "c2", "c3", "c4", "c5", "c6"):
+        assert isinstance(meta[key], (int, float)) and not isinstance(meta[key], bool), (
+            f"{key} must be numeric, got {type(meta[key]).__name__}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-5: Distance preservation
+# ---------------------------------------------------------------------------
+
+def test_vdb011_distance_returned_and_non_negative(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """Distance for the top result must be present and >= 0."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+    assert "distances" in result
+    assert result["distances"] is not None
+    dist = result["distances"][0][0]
+    assert isinstance(dist, float)
+    assert dist >= 0.0
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-6: Top-K ordering correctness
+# ---------------------------------------------------------------------------
+
+def test_vdb011_top_k_ordering_distances_ascending(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """
+    Top-3 results queried with EMBEDDING_A must be ordered by ascending distance.
+    record-A (nearest) must appear first with the smallest distance.
+    """
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=3, collection=seeded_collection)
+    ids       = result["ids"][0]
+    distances = result["distances"][0]  # type: ignore[index]
+
+    # record-A must be first
+    assert ids[0] == "record-A", f"Expected record-A first, got {ids[0]}"
+
+    # Distances must be non-decreasing (ascending order)
+    for i in range(len(distances) - 1):
+        assert distances[i] <= distances[i + 1], (
+            f"Distances not ascending at position {i}: {distances[i]} > {distances[i + 1]}"
+        )
+
+
+def test_vdb011_top_k_count_matches_n_results(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """n_results=3 must return exactly 3 records when 3 are seeded."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=3, collection=seeded_collection)
+    assert len(result["ids"][0])       == 3
+    assert len(result["documents"][0]) == 3
+    assert len(result["metadatas"][0]) == 3
+    assert len(result["distances"][0]) == 3  # type: ignore[index]
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-7: Result structure completeness
+# ---------------------------------------------------------------------------
+
+def test_vdb011_result_structure_has_required_keys(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """Result dict must expose ids, documents, metadatas, and distances."""
+    from src.vectorstore.retrieve import retrieve
+
+    result = retrieve(EMBEDDING_A, n_results=1, collection=seeded_collection)
+
+    assert "ids"       in result, "result must have 'ids' key"
+    assert "documents" in result, "result must have 'documents' key"
+    assert "metadatas" in result, "result must have 'metadatas' key"
+    assert "distances" in result, "result must have 'distances' key"
+
+    # Inner lists must be present and non-None
+    assert result["ids"]       is not None
+    assert result["documents"] is not None
+    assert result["metadatas"] is not None
+
+
+# ---------------------------------------------------------------------------
+# VDB-011-8: Filtered retrieval metadata compatibility
+# ---------------------------------------------------------------------------
+
+def test_vdb011_filtered_retrieval_metadata_intact(
+    seeded_collection: chromadb.Collection,
+) -> None:
+    """
+    Metadata returned via filtered_retrieve (VDB-010) must still contain all
+    ten VDB-004 fields intact — proving the filter pipeline does not strip metadata.
+    """
+    from src.vectorstore.filtered_retrieve import filtered_retrieve
+
+    result = filtered_retrieve(
+        EMBEDDING_A, n_results=1, domain="CODE", collection=seeded_collection
+    )
+    meta = result["metadatas"][0][0]
+
+    # All ten fields present
+    for field in ("domain", "level", "c1", "c2", "c3", "c4", "c5", "c6", "source", "version"):
+        assert field in meta, f"Field '{field}' missing from filtered retrieval metadata"
+
+    # domain must be CODE (filter was applied)
+    assert meta["domain"] == "CODE"
+    # Full value match for the returned record
+    assert meta == META_A
