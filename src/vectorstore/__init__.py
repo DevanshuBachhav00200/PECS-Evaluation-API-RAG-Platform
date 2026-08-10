@@ -4,6 +4,7 @@ from src.vectorstore.init import COLLECTION_NAME, get_or_create_collection
 from src.vectorstore.document_format import serialize_document, deserialize_document
 from src.vectorstore.metadata_schema import build_metadata, validate_metadata
 from src.vectorstore.ingest import ingest_record
+from src.vectorstore.client import get_client
 
 __all__ = [
     "get_chroma_db_path",
@@ -14,4 +15,5 @@ __all__ = [
     "build_metadata",
     "validate_metadata",
     "ingest_record",
+    "get_client",
 ]
