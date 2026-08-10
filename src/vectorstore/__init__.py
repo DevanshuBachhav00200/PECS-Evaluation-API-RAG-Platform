@@ -5,6 +5,7 @@ from src.vectorstore.document_format import serialize_document, deserialize_docu
 from src.vectorstore.metadata_schema import build_metadata, validate_metadata
 from src.vectorstore.ingest import ingest_record
 from src.vectorstore.client import get_client
+from src.vectorstore.upsert import upsert_record
 
 __all__ = [
     "get_chroma_db_path",
@@ -16,4 +17,5 @@ __all__ = [
     "validate_metadata",
     "ingest_record",
     "get_client",
+    "upsert_record",
 ]
