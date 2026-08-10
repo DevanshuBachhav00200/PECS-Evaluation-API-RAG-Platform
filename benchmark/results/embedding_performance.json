@@ -1,0 +1,54 @@
+{
+  "task_id": "EMB-008",
+  "model": "all-MiniLM-L6-v2",
+  "device": "cpu",
+  "embedding_dimension": 384,
+  "records": 100,
+  "results": [
+    {
+      "batch_size": 1,
+      "repetitions": 3,
+      "mean_time_seconds": 2.9113752999983262,
+      "min_time_seconds": 2.720101400016574,
+      "max_time_seconds": 3.182159399992088,
+      "mean_throughput_records_per_second": 34.50031776604854,
+      "mean_latency_ms_per_record": 29.113752999983262
+    },
+    {
+      "batch_size": 8,
+      "repetitions": 3,
+      "mean_time_seconds": 0.9965918333424876,
+      "min_time_seconds": 0.9182922000181861,
+      "max_time_seconds": 1.036168999999063,
+      "mean_throughput_records_per_second": 100.66539299582803,
+      "mean_latency_ms_per_record": 9.965918333424876
+    },
+    {
+      "batch_size": 16,
+      "repetitions": 3,
+      "mean_time_seconds": 1.2127474000056584,
+      "min_time_seconds": 1.1439593999821227,
+      "max_time_seconds": 1.2729282000218518,
+      "mean_throughput_records_per_second": 82.61700655686074,
+      "mean_latency_ms_per_record": 12.127474000056585
+    },
+    {
+      "batch_size": 32,
+      "repetitions": 3,
+      "mean_time_seconds": 1.3365937000101742,
+      "min_time_seconds": 1.3220748000021558,
+      "max_time_seconds": 1.3576458000170533,
+      "mean_throughput_records_per_second": 74.82671647327311,
+      "mean_latency_ms_per_record": 13.365937000101743
+    },
+    {
+      "batch_size": 64,
+      "repetitions": 3,
+      "mean_time_seconds": 1.1525314333363592,
+      "min_time_seconds": 1.0558169000141788,
+      "max_time_seconds": 1.2631354999903124,
+      "mean_throughput_records_per_second": 87.23512886307509,
+      "mean_latency_ms_per_record": 11.52531433336359
+    }
+  ]
+}
