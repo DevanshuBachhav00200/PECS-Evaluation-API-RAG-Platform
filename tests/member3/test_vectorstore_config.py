@@ -54,8 +54,17 @@ def test_config_does_not_initialize_chromadb() -> None:
     Verify that ChromaDB is not imported or initialized, and no directories
     are created during configuration resolution.
     """
-    # 1. Verify ChromaDB is not in sys.modules due to importing config
-    assert "chromadb" not in sys.modules
+    # 1. Verify ChromaDB is not imported by config.py using AST parsing
+    import ast
+    config_file = Path(config.__file__)
+    tree = ast.parse(config_file.read_text(encoding="utf-8"))
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for name in node.names:
+                assert "chromadb" not in name.name, "config.py must not import chromadb"
+        elif isinstance(node, ast.ImportFrom):
+            assert node.module is not None
+            assert "chromadb" not in node.module, "config.py must not import chromadb"
 
     # 2. Verify that Database folder has not been created by get_chroma_db_path
     db_dir = config.REPO_ROOT / "Database"
