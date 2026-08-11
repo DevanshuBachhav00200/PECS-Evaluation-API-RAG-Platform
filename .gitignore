@@ -29,6 +29,7 @@ logs/
 
 # ChromaDB
 chroma_data/
+Database/
 
 # Generated artifacts
 artifacts/
