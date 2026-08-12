@@ -2,11 +2,21 @@
 
 from unittest.mock import patch
 
+import pytest
 from fastapi.testclient import TestClient
 
 from src.api import app
 
 client = TestClient(app)
+
+TEST_HEADERS = {"x-api-key": "test-key-123"}
+
+
+@pytest.fixture(autouse=True)
+def setup_auth_key(monkeypatch):
+    """Set server API_KEY environment variable for all evaluate endpoint tests."""
+    monkeypatch.setenv("API_KEY", "test-key-123")
+
 
 # Sample valid Member 4 engine success output payload for 1 submission
 SUCCESSFUL_ENGINE_OUTPUT_SINGLE = {
@@ -112,7 +122,7 @@ def test_evaluate_successful_single_submission(mock_engine):
         ]
     }
 
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 200
     data = response.json()
     assert len(data["evaluations"]) == 1
@@ -143,7 +153,7 @@ def test_evaluate_successful_batch_submissions(mock_engine):
         ]
     }
 
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 200
     data = response.json()
     assert len(data["evaluations"]) == 2
@@ -159,14 +169,14 @@ def test_evaluate_successful_batch_submissions(mock_engine):
 def test_evaluate_invalid_request_empty_submissions():
     """Verify POST /evaluate returns HTTP 422 for empty submission list."""
     payload = {"submissions": []}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 422
 
 
 def test_evaluate_invalid_request_blank_fields():
     """Verify POST /evaluate returns HTTP 422 when submission has blank whitespace fields."""
     payload = {"submissions": [{"task": "   ", "student_prompt": "Valid prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 422
 
 
@@ -184,7 +194,7 @@ def test_evaluate_error_token_safety_abort(mock_engine):
     }
 
     payload = {"submissions": [{"task": "Large task", "student_prompt": "Long prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 413
     data = response.json()
     assert data["error"]["code"] == "RAG_TOKEN_SAFETY_ABORT"
@@ -205,7 +215,7 @@ def test_evaluate_error_rate_limited(mock_engine):
     }
 
     payload = {"submissions": [{"task": "Task", "student_prompt": "Prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 429
     assert response.json()["error"]["retryable"] is True
 
@@ -224,7 +234,7 @@ def test_evaluate_error_timeout(mock_engine):
     }
 
     payload = {"submissions": [{"task": "Task", "student_prompt": "Prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 504
     assert response.json()["error"]["code"] == "RAG_LLM_TIMEOUT"
 
@@ -243,7 +253,7 @@ def test_evaluate_error_bad_gateway(mock_engine):
     }
 
     payload = {"submissions": [{"task": "Task", "student_prompt": "Prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 502
     assert response.json()["error"]["code"] == "RAG_LLM_AUTH_ERROR"
 
@@ -262,6 +272,7 @@ def test_evaluate_error_rubric_unavailable(mock_engine):
     }
 
     payload = {"submissions": [{"task": "Task", "student_prompt": "Prompt"}]}
-    response = client.post("/evaluate", json=payload)
+    response = client.post("/evaluate", json=payload, headers=TEST_HEADERS)
     assert response.status_code == 500
     assert response.json()["error"]["code"] == "EVAL_RUBRIC_UNAVAILABLE"
+

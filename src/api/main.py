@@ -2,9 +2,10 @@
 
 from typing import Dict, Union
 
-from fastapi import FastAPI, status
+from fastapi import Depends, FastAPI, status
 from fastapi.responses import JSONResponse
 
+from src.api.auth import verify_api_key
 from src.api.schemas import (
     EvaluationErrorResponse,
     EvaluationRequest,
@@ -75,12 +76,14 @@ def health_check() -> HealthCheckResponse:
     summary="Evaluate Prompt Submissions",
     description="Evaluates a batch of candidate prompt submissions using the PECS RAG evaluation engine.",
     tags=["Evaluation"],
+    dependencies=[Depends(verify_api_key)],
     responses={
         200: {"model": EvaluationResponse, "description": "Successful batch evaluation result."},
+        403: {"description": "Missing or invalid API key."},
         413: {"model": EvaluationErrorResponse, "description": "Token safety limit exceeded."},
         422: {"model": EvaluationErrorResponse, "description": "Invalid submission payload."},
         429: {"model": EvaluationErrorResponse, "description": "LLM rate limit exceeded."},
-        500: {"model": EvaluationErrorResponse, "description": "Internal evaluator or rubric error."},
+        500: {"model": EvaluationErrorResponse, "description": "Internal evaluator or server configuration error."},
         502: {"model": EvaluationErrorResponse, "description": "Bad gateway or upstream LLM failure."},
         504: {"model": EvaluationErrorResponse, "description": "Upstream LLM timeout."},
     },

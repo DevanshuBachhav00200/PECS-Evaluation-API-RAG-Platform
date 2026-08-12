@@ -1,5 +1,6 @@
 """PECS Evaluation API package."""
 
+from src.api.auth import verify_api_key
 from src.api.main import app
 from src.api.schemas import (
     ErrorDetailResponse,
@@ -17,6 +18,7 @@ from src.api.schemas import (
 
 __all__ = [
     "app",
+    "verify_api_key",
     "SubmissionRequest",
     "EvaluationRequest",
     "EthicsGateResponse",
@@ -29,5 +31,6 @@ __all__ = [
     "EvaluationErrorResponse",
     "HealthCheckResponse",
 ]
+
 
 
