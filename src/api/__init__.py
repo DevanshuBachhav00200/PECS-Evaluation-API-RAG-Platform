@@ -1,6 +1,7 @@
 """PECS Evaluation API package."""
 
 from src.api.auth import verify_api_key
+from src.api.config import ConfigurationError, Settings, get_settings
 from src.api.logging_middleware import (
     LOG_FILE_PATH,
     RequestLoggingMiddleware,
@@ -21,7 +22,6 @@ from src.api.schemas import (
     SubmissionRequest,
     UsageInfoResponse,
 )
-
 __all__ = [
     "app",
     "verify_api_key",
@@ -30,6 +30,9 @@ __all__ = [
     "RequestLoggingMiddleware",
     "request_counter",
     "LOG_FILE_PATH",
+    "Settings",
+    "ConfigurationError",
+    "get_settings",
     "SubmissionRequest",
     "EvaluationRequest",
     "EthicsGateResponse",
@@ -42,8 +45,3 @@ __all__ = [
     "EvaluationErrorResponse",
     "HealthCheckResponse",
 ]
-
-
-
-
-
