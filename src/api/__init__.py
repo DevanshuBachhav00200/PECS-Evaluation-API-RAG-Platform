@@ -2,6 +2,7 @@
 
 from src.api.auth import verify_api_key
 from src.api.main import app
+from src.api.rate_limit import global_rate_limiter, rate_limit_dependency
 from src.api.schemas import (
     ErrorDetailResponse,
     EthicsGateResponse,
@@ -19,6 +20,8 @@ from src.api.schemas import (
 __all__ = [
     "app",
     "verify_api_key",
+    "global_rate_limiter",
+    "rate_limit_dependency",
     "SubmissionRequest",
     "EvaluationRequest",
     "EthicsGateResponse",
@@ -31,6 +34,7 @@ __all__ = [
     "EvaluationErrorResponse",
     "HealthCheckResponse",
 ]
+
 
 
 

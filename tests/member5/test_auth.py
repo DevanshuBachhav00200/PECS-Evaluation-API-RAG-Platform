@@ -2,9 +2,10 @@
 
 from unittest.mock import patch
 
+import pytest
 from fastapi.testclient import TestClient
 
-from src.api import app, verify_api_key
+from src.api import app, global_rate_limiter, verify_api_key
 
 client = TestClient(app)
 
@@ -13,6 +14,14 @@ SAMPLE_EVAL_PAYLOAD = {
         {"task": "Task description", "student_prompt": "Prompt text"}
     ]
 }
+
+
+@pytest.fixture(autouse=True)
+def reset_rate_limit():
+    """Reset rate limiter before and after each auth test."""
+    global_rate_limiter.reset()
+    yield
+    global_rate_limiter.reset()
 
 
 def test_auth_valid_api_key(monkeypatch):

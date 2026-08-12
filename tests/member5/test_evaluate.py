@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pytest
 from fastapi.testclient import TestClient
 
-from src.api import app
+from src.api import app, global_rate_limiter
 
 client = TestClient(app)
 
@@ -14,8 +14,12 @@ TEST_HEADERS = {"x-api-key": "test-key-123"}
 
 @pytest.fixture(autouse=True)
 def setup_auth_key(monkeypatch):
-    """Set server API_KEY environment variable for all evaluate endpoint tests."""
+    """Set server API_KEY environment variable and reset rate limiter for all evaluate endpoint tests."""
     monkeypatch.setenv("API_KEY", "test-key-123")
+    global_rate_limiter.reset()
+    yield
+    global_rate_limiter.reset()
+
 
 
 # Sample valid Member 4 engine success output payload for 1 submission

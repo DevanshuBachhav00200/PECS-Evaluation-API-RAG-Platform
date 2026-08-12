@@ -3,7 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from src.api import app
+from src.api import app, global_rate_limiter
 
 client = TestClient(app)
 
@@ -12,8 +12,12 @@ TEST_HEADERS = {"x-api-key": "test-secret-key"}
 
 @pytest.fixture(autouse=True)
 def setup_auth(monkeypatch):
-    """Set server API_KEY environment variable for authentication."""
+    """Set server API_KEY environment variable and reset rate limiter for authentication."""
     monkeypatch.setenv("API_KEY", "test-secret-key")
+    global_rate_limiter.reset()
+    yield
+    global_rate_limiter.reset()
+
 
 
 def test_validation_missing_required_task():
