@@ -1,6 +1,11 @@
 """PECS Evaluation API package."""
 
 from src.api.auth import verify_api_key
+from src.api.logging_middleware import (
+    LOG_FILE_PATH,
+    RequestLoggingMiddleware,
+    request_counter,
+)
 from src.api.main import app
 from src.api.rate_limit import global_rate_limiter, rate_limit_dependency
 from src.api.schemas import (
@@ -22,6 +27,9 @@ __all__ = [
     "verify_api_key",
     "global_rate_limiter",
     "rate_limit_dependency",
+    "RequestLoggingMiddleware",
+    "request_counter",
+    "LOG_FILE_PATH",
     "SubmissionRequest",
     "EvaluationRequest",
     "EthicsGateResponse",
@@ -34,6 +42,7 @@ __all__ = [
     "EvaluationErrorResponse",
     "HealthCheckResponse",
 ]
+
 
 
 

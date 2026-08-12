@@ -6,6 +6,7 @@ from fastapi import Depends, FastAPI, status
 from fastapi.responses import JSONResponse
 
 from src.api.auth import verify_api_key
+from src.api.logging_middleware import RequestLoggingMiddleware
 from src.api.rate_limit import rate_limit_dependency
 from src.api.schemas import (
     EvaluationErrorResponse,
@@ -21,6 +22,9 @@ app = FastAPI(
     description="Evaluation API and RAG Platform for PECS",
     version="1.0.0",
 )
+
+app.add_middleware(RequestLoggingMiddleware)
+
 
 #: Error code to HTTP status code mapping (API-010).
 ERROR_STATUS_MAP: Dict[str, int] = {
