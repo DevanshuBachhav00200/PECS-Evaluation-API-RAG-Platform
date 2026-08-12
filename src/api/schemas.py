@@ -63,9 +63,27 @@ class EvaluationRequest(BaseModel):
         description="Non-empty list of submissions to evaluate.",
     )
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "submissions": [
+                        {
+                            "task": "Write a Python function to sort a list of integers.",
+                            "student_prompt": "def bubble_sort(arr):\n    for i in range(len(arr)):\n        for j in range(0, len(arr)-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+                            "domain": "CODE",
+                            "level": "strong",
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
     def to_qa_pairs(self) -> List[Dict[str, Any]]:
         """Convert all submissions in the request into a list of QA pair dictionaries for the evaluation engine."""
         return [sub.to_qa_pair() for sub in self.submissions]
+
 
 
 # ---------------------------------------------------------------------------
@@ -401,5 +419,18 @@ class HealthCheckResponse(BaseModel):
         description="Whether the sentence-transformer embedding model is warm-loaded and ready.",
         examples=[True],
     )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "status": "healthy",
+                    "version": "1.0.0",
+                    "embedder_loaded": True,
+                }
+            ]
+        }
+    }
+
 
 
