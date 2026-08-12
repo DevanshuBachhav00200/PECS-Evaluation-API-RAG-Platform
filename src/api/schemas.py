@@ -382,3 +382,24 @@ class EvaluationErrorResponse(BaseModel):
         description="Structured error details payload.",
     )
 
+
+class HealthCheckResponse(BaseModel):
+    """Health check response model for API-004."""
+
+    status: str = Field(
+        default="healthy",
+        description="Health status of the PECS Evaluation API service.",
+        examples=["healthy"],
+    )
+    version: str = Field(
+        default="1.0.0",
+        description="API service version.",
+        examples=["1.0.0"],
+    )
+    embedder_loaded: bool = Field(
+        default=True,
+        description="Whether the sentence-transformer embedding model is warm-loaded and ready.",
+        examples=[True],
+    )
+
+

@@ -8,6 +8,7 @@ from src.api.schemas import (
     EvaluationMetaResponse,
     EvaluationRequest,
     EvaluationResponse,
+    HealthCheckResponse,
     OverallSummaryResponse,
     SubmissionEvaluationResponse,
     SubmissionRequest,
@@ -26,5 +27,7 @@ __all__ = [
     "EvaluationResponse",
     "ErrorDetailResponse",
     "EvaluationErrorResponse",
+    "HealthCheckResponse",
 ]
+
 
