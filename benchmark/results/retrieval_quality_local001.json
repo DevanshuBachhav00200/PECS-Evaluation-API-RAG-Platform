@@ -1,0 +1,348 @@
+{
+  "top_k": 3,
+  "corpus_size": 331,
+  "collection_count": 241,
+  "cases": [
+    {
+      "case_id": "RQ-SELF-0000",
+      "family": "self_retrieval",
+      "query": "explain the differences between linear regression and logistic regression in simple terms.",
+      "expected_record_id": "d8fe56efccd1b12e",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "d8fe56efccd1b12e",
+      "returned_ids": [
+        "d8fe56efccd1b12e",
+        "c660ba2cba9576da",
+        "ec3df618e9605a83"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 0.0
+    },
+    {
+      "case_id": "RQ-SELF-0024",
+      "family": "self_retrieval",
+      "query": "how do i clean a dataset that has missing values in python?",
+      "expected_record_id": "acbba7fa9a99e5c6",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "acbba7fa9a99e5c6",
+      "returned_ids": [
+        "acbba7fa9a99e5c6",
+        "742a89b3a4bc1926",
+        "f7f2ff21a5449af0"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 0.0
+    },
+    {
+      "case_id": "RQ-SELF-0048",
+      "family": "self_retrieval",
+      "query": "explain k-means clustering for a high-school student.",
+      "expected_record_id": "5132b3374ab34eef",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "5132b3374ab34eef",
+      "returned_ids": [
+        "5132b3374ab34eef",
+        "1ef832dd9c2f8394",
+        "01be01ab7a6beb0b"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 1.6882748996548125e-13
+    },
+    {
+      "case_id": "RQ-SELF-0093",
+      "family": "self_retrieval",
+      "query": "explain what a queue is and how it is different from a stack. keep it under 200 words.",
+      "expected_record_id": "66ab059e6b29d3b8",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "66ab059e6b29d3b8",
+      "returned_ids": [
+        "66ab059e6b29d3b8",
+        "117ee62c7d07ca51",
+        "47fdef53842002ab"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 2.2268009647590653e-13
+    },
+    {
+      "case_id": "RQ-SELF-0117",
+      "family": "self_retrieval",
+      "query": "explain hash tables. also explain binary trees. also explain sorting. also explain graphs. also explain recursion. keep it short.",
+      "expected_record_id": "6f7f48272b1cf4f9",
+      "domain": "EDGE",
+      "available": true,
+      "top_id": "6f7f48272b1cf4f9",
+      "returned_ids": [
+        "6f7f48272b1cf4f9",
+        "59b78de5d6d35ab7",
+        "694dc064d9e2a5e6"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 1.1360961542188075e-13
+    },
+    {
+      "case_id": "RQ-SELF-0141",
+      "family": "self_retrieval",
+      "query": "how to connect to database in python",
+      "expected_record_id": "a73769a6a6f368c1",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "a73769a6a6f368c1",
+      "returned_ids": [
+        "a73769a6a6f368c1",
+        "6678601d98131031",
+        "0bf315749535cc23"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 1.3336787186776777e-13
+    },
+    {
+      "case_id": "RQ-SELF-0165",
+      "family": "self_retrieval",
+      "query": "explain the concept of database transactions and acid properties. use a banking transfer example to show what happens when a transaction fails midway.",
+      "expected_record_id": "97d8aa78548b001e",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "97d8aa78548b001e",
+      "returned_ids": [
+        "97d8aa78548b001e",
+        "bac09de9a85c516e",
+        "6f7f48272b1cf4f9"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 1.6736430492360344e-13
+    },
+    {
+      "case_id": "RQ-SELF-0242",
+      "family": "self_retrieval",
+      "query": "what is virtual dom",
+      "expected_record_id": "d62973632b05d15f",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "d62973632b05d15f",
+      "returned_ids": [
+        "d62973632b05d15f",
+        "8c05edb242c5b83b",
+        "caa7f5b59119c0be"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 2.1781182543353927e-13
+    },
+    {
+      "case_id": "RQ-SELF-0272",
+      "family": "self_retrieval",
+      "query": "act as a css teacher. what is the difference between display block inline and inline-block? include a comparison table.",
+      "expected_record_id": "3326fe61ff692988",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "3326fe61ff692988",
+      "returned_ids": [
+        "3326fe61ff692988",
+        "592127bcbf6f73d7",
+        "f66c8f7284d41ade"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 2.7410718009615587e-13
+    },
+    {
+      "case_id": "RQ-SELF-0302",
+      "family": "self_retrieval",
+      "query": "explain what react suspense is. i am a college student and just started learning react. please avoid advanced concepts and keep it simple.",
+      "expected_record_id": "403bc71c27e9db9c",
+      "domain": "CODE",
+      "available": true,
+      "top_id": "403bc71c27e9db9c",
+      "returned_ids": [
+        "403bc71c27e9db9c",
+        "8c9c4092ae9a2d6e",
+        "dc3c9a1f01bbe256"
+      ],
+      "rank_of_expected": 1,
+      "top1_correct": true,
+      "decidable": true,
+      "distance": 2.020220877521281e-13
+    },
+    {
+      "case_id": "RQ-NEAR-001",
+      "family": "near_pair",
+      "query": "Act as a data scientist and explain approaches for dealing with outliers in financial data, comparing the options and noting the risks of getting it wrong.",
+      "expectation": "Should retrieve an outlier-handling / data-cleaning calibration example from the CODE domain.",
+      "domain": "CODE",
+      "available": true,
+      "returned_ids": [
+        "0be72698a3444b12",
+        "bac09de9a85c516e",
+        "b2949e653b8e3f6d"
+      ],
+      "retrieved": [
+        {
+          "record_id": "0be72698a3444b12",
+          "distance": 0.7017565369606018,
+          "domain": "CODE",
+          "level": "weak",
+          "calibration": "Scores: C1:4 | C2:4 | C3:3 | C4:4 | C5:3 | C6:3 \u2192 Justification: This prompt (ID 31) lacks sufficient clarity and structure, limiting its effectiveness in data handling."
+        },
+        {
+          "record_id": "bac09de9a85c516e",
+          "distance": 0.959700345993042,
+          "domain": "CODE",
+          "level": "developing",
+          "calibration": "Scores: C1:6 | C2:7 | C3:4 | C4:7 | C5:6 | C6:6 \u2192 Justification: This prompt (ID 22) shows moderate clarity and partially structured instructions, especially in model selection, data handling."
+        },
+        {
+          "record_id": "b2949e653b8e3f6d",
+          "distance": 1.0100064277648926,
+          "domain": "CODE",
+          "level": "developing",
+          "calibration": "Scores: C1:4 | C2:5 | C3:4 | C4:6 | C5:4 | C6:4 \u2192 Justification: This prompt (ID 5) shows moderate clarity and partially structured instructions, especially in data handling."
+        }
+      ],
+      "decidable": false,
+      "review_status": "pending_manual_review"
+    },
+    {
+      "case_id": "RQ-NEAR-002",
+      "family": "near_pair",
+      "query": "You are a senior analyst. Present analysis findings to a non-technical audience in plain language with bullet points, and state the assumptions.",
+      "expectation": "Should retrieve a communicate-results-to-stakeholders example.",
+      "domain": "CODE",
+      "available": true,
+      "returned_ids": [
+        "b771f23f5dd5afbe",
+        "a6aa98147ad3a714",
+        "a241ffa824864e14"
+      ],
+      "retrieved": [
+        {
+          "record_id": "b771f23f5dd5afbe",
+          "distance": 1.0533421039581299,
+          "domain": "CODE",
+          "level": "weak",
+          "calibration": "Scores: C1:4 | C2:4 | C3:3 | C4:4 | C5:3 | C6:3 \u2192 Justification: This prompt (ID 46) lacks sufficient clarity and structure, limiting its effectiveness in data handling, analysis clarity."
+        },
+        {
+          "record_id": "a6aa98147ad3a714",
+          "distance": 1.305328607559204,
+          "domain": "CODE",
+          "level": "developing",
+          "calibration": "Scores: C1:2.5 | C2:6.67 | C3:2.5 | C4:6 | C5:2.5 | C6:2.67 \u2192 Justification: Role + audience combo pushes C2 to 6. No output format or length spec."
+        },
+        {
+          "record_id": "a241ffa824864e14",
+          "distance": 1.3378492593765259,
+          "domain": "CODE",
+          "level": "strong",
+          "calibration": "Scores: C1:7 | C2:9 | C3:9 | C4:8 | C5:6 | C6:8 \u2192 Justification: Role plus format (prose no bullets) plus word limit plus negative instruction plus uncertainty flag equals 5 techniques. C3 fully specified: format plus word count plus no-bullets constraint. Metacognition strongest: flag debatable parts. Placement context. React reconciliation domain."
+        }
+      ],
+      "decidable": false,
+      "review_status": "pending_manual_review"
+    },
+    {
+      "case_id": "RQ-NEAR-003",
+      "family": "near_pair",
+      "query": "write a story twist about a clock that stopped working",
+      "expectation": "Should retrieve the CREATE-domain plot-twist calibration example seeded by ANN-006, if CREATE records are present in the store.",
+      "domain": "CREATE",
+      "available": true,
+      "returned_ids": [
+        "6bec2f1a221df441",
+        "26da7219c65ac183",
+        "8e9e055229cea5d0"
+      ],
+      "retrieved": [
+        {
+          "record_id": "6bec2f1a221df441",
+          "distance": 1.5091962814331055,
+          "domain": "CODE",
+          "level": "weak",
+          "calibration": "Scores: C1:1.33 | C2:1.33 | C3:1.33 | C4:2 | C5:1.33 | C6:1.33 \u2192 Justification: Hinglish definition query, zero technique. Natural student voice."
+        },
+        {
+          "record_id": "26da7219c65ac183",
+          "distance": 1.5480985641479492,
+          "domain": "CODE",
+          "level": "weak",
+          "calibration": "Scores: C1:1.33 | C2:1.33 | C3:1.67 | C4:2.33 | C5:1.67 | C6:1.67 \u2192 Justification: Definition-level query with no structure."
+        },
+        {
+          "record_id": "8e9e055229cea5d0",
+          "distance": 1.5754897594451904,
+          "domain": "EDGE",
+          "level": "weak",
+          "calibration": "Scores: C1:1 | C2:5.33 | C3:3 | C4:5.67 | C5:3 | C6:2.33 \u2192 Justification: EDGE: Hinglish debug request with accidental language mismatch. Partial format spec. Metacognitive awareness of own mistake (C6=3)."
+        }
+      ],
+      "decidable": false,
+      "review_status": "pending_manual_review"
+    },
+    {
+      "case_id": "RQ-SCOPE-CODE",
+      "family": "domain_scope",
+      "query_domain": "CODE",
+      "available": true,
+      "returned_domains": [
+        "CODE"
+      ],
+      "returned_ids": [
+        "374278159107457d"
+      ],
+      "decidable": true,
+      "scope_respected": true,
+      "matched_any": true
+    },
+    {
+      "case_id": "RQ-SCOPE-EDGE",
+      "family": "domain_scope",
+      "query_domain": "EDGE",
+      "available": true,
+      "returned_domains": [
+        "EDGE"
+      ],
+      "returned_ids": [
+        "ea94e404bfba5613"
+      ],
+      "decidable": true,
+      "scope_respected": true,
+      "matched_any": true
+    }
+  ],
+  "summary": {
+    "self_retrieval": {
+      "n": 10,
+      "top1_correct": 10,
+      "found_in_top_k": 10,
+      "pass_rate": 1.0
+    },
+    "domain_scope": {
+      "n": 2,
+      "scope_respected": 2,
+      "domains_with_no_match": []
+    },
+    "near_pair": {
+      "n": 3,
+      "review_status": "pending_manual_review"
+    }
+  }
+}

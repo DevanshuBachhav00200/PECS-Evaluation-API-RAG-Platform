@@ -1,0 +1,10 @@
+{
+  "baseline_id": "355d1291d73bd87eae459459843da04001ba036d5c2e1a957568aab9ebd02bd9",
+  "grading": null,
+  "artifacts": {
+    "grading": null,
+    "retrieval": "benchmark/results/retrieval_quality_local001.json",
+    "consistency": null,
+    "edge_cases": null
+  }
+}

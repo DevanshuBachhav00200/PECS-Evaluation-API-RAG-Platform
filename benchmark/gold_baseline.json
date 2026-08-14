@@ -1,0 +1,706 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "355d1291d73bd87eae459459843da04001ba036d5c2e1a957568aab9ebd02bd9",
+  "source_file": "data/processed/gold_eval_set.csv",
+  "produced_by": "ANN-011 (Member 2) \u2014 held-out gold evaluation set",
+  "frozen_by": "BENCH-002 (Member 6)",
+  "criteria": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+  ],
+  "score_scale": {
+    "min": 1.0,
+    "max": 10.0,
+    "composite_scale": "0-10"
+  },
+  "reference_provenance": {
+    "score_sources": [
+      "auto_mean"
+    ],
+    "human_sme_signoff": "pending",
+    "note": "Reference scores are the 3-judge consensus mean recorded by ANN-010/ANN-011, not SME human reference scores. Treat agreement figures as model-vs-judge-consensus until Team Beta signs off (see ANN-007, data/reports/quality_summary.json human_review_status)."
+  },
+  "summary": {
+    "records": 39,
+    "by_domain": {
+      "CODE": 39
+    },
+    "by_level": {
+      "developing": 8,
+      "strong": 28,
+      "weak": 3
+    },
+    "by_score_source": {
+      "auto_mean": 39
+    }
+  },
+  "records": [
+    {
+      "record_id": "009fcf1a871755e5",
+      "prompt_id": "PELS-L1-CODE-062",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 9.0,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 8.0
+      },
+      "composite": 8.25,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "06176e8bdc543500",
+      "prompt_id": "PELS-L1-CODE-BE-050",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 3.0,
+        "c2": 5.67,
+        "c3": 5.67,
+        "c4": 6.5,
+        "c5": 4.0,
+        "c6": 2.67
+      },
+      "composite": 4.88,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "0f785c0712dee441",
+      "prompt_id": "PELS-L1-CODE-BE-064",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.0,
+        "c2": 8.33,
+        "c3": 9.0,
+        "c4": 8.33,
+        "c5": 6.5,
+        "c6": 8.0
+      },
+      "composite": 8.11,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "101c53cc60c2364e",
+      "prompt_id": "PELS-L1-CODE-BE-056",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.0,
+        "c2": 9.33,
+        "c3": 9.0,
+        "c4": 9.0,
+        "c5": 6.5,
+        "c6": 8.0
+      },
+      "composite": 8.44,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "15030a0b7474df76",
+      "prompt_id": "PELS-L1-CODE-BE-057",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.0,
+        "c3": 9.0,
+        "c4": 8.33,
+        "c5": 7.0,
+        "c6": 8.5
+      },
+      "composite": 8.44,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "1774c71298c188c3",
+      "prompt_id": "PELS-L1-CODE-BE-062",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.67,
+        "c3": 8.67,
+        "c4": 9.0,
+        "c5": 7.0,
+        "c6": 8.67
+      },
+      "composite": 8.24,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "19c21358ce1a843c",
+      "prompt_id": "PELS-L1-CODE-066",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 8.0,
+        "c4": 7.0,
+        "c5": 7.0,
+        "c6": 8.0
+      },
+      "composite": 7.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "202733485cfb5b3a",
+      "prompt_id": "PELS-L1-CODE-BE-067",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.0,
+        "c2": 8.67,
+        "c3": 9.0,
+        "c4": 9.0,
+        "c5": 8.0,
+        "c6": 8.67
+      },
+      "composite": 8.6,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "22d192227ef10faa",
+      "prompt_id": "PELS-L1-CODE-BE-066",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.0,
+        "c3": 8.67,
+        "c4": 9.67,
+        "c5": 6.5,
+        "c6": 9.0
+      },
+      "composite": 8.62,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "251501ebf853a935",
+      "prompt_id": "PELS-L1-CODE-BE-063",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.67,
+        "c3": 8.67,
+        "c4": 9.33,
+        "c5": 8.33,
+        "c6": 9.33
+      },
+      "composite": 8.77,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "2ff721d39019b037",
+      "prompt_id": "PELS-L1-CODE-004",
+      "domain": "CODE",
+      "level": "weak",
+      "scores": {
+        "c1": 1.0,
+        "c2": 1.0,
+        "c3": 1.0,
+        "c4": 2.0,
+        "c5": 3.0,
+        "c6": 1.0
+      },
+      "composite": 1.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "35d3408dcd9e5691",
+      "prompt_id": "PELS-L1-CODE-065",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 8.0,
+        "c4": 8.0,
+        "c5": 7.0,
+        "c6": 6.0
+      },
+      "composite": 7.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "4564e50abdb85bcb",
+      "prompt_id": "PELS-L1-CODE-061",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 6.0,
+        "c2": 8.0,
+        "c3": 7.0,
+        "c4": 7.0,
+        "c5": 7.0,
+        "c6": 8.0
+      },
+      "composite": 7.15,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "4a616b7c00b1989f",
+      "prompt_id": "PELS-L1-CODE-BE-079",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 4.5,
+        "c2": 6.67,
+        "c3": 6.67,
+        "c4": 6.5,
+        "c5": 3.0,
+        "c6": 4.5
+      },
+      "composite": 5.54,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "4dedad4de3494f44",
+      "prompt_id": "PELS-L1-CODE-063",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 8.0,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 7.0
+      },
+      "composite": 7.95,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "59217f221319786e",
+      "prompt_id": "PELS-L1-CODE-BE-068",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 8.33,
+        "c4": 8.33,
+        "c5": 8.0,
+        "c6": 8.33
+      },
+      "composite": 8.22,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "5a3bb9b642bf3620",
+      "prompt_id": "PELS-L1-CODE-BE-053",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 4.0,
+        "c2": 5.33,
+        "c3": 5.33,
+        "c4": 7.0,
+        "c5": 3.0,
+        "c6": 3.0
+      },
+      "composite": 4.88,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "5b83f40200b2904e",
+      "prompt_id": "PELS-L1-CODE-067",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 8.0,
+        "c4": 7.0,
+        "c5": 7.0,
+        "c6": 8.0
+      },
+      "composite": 7.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "5d7568f1fe556cf8",
+      "prompt_id": "PELS-L1-CODE-070",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 8.0,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 8.0
+      },
+      "composite": 8.05,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "5dd8fc7521b5e50e",
+      "prompt_id": "PELS-L1-CODE-BE-059",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 6.67,
+        "c2": 9.0,
+        "c3": 9.67,
+        "c4": 9.67,
+        "c5": 8.5,
+        "c6": 8.5
+      },
+      "composite": 8.79,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "6262e31653ce4cf4",
+      "prompt_id": "PELS-L1-CODE-BE-051",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 4.0,
+        "c2": 5.0,
+        "c3": 5.67,
+        "c4": 8.0,
+        "c5": 6.33,
+        "c6": 3.0
+      },
+      "composite": 5.58,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "6cbe90047c00a0a0",
+      "prompt_id": "PELS-L1-CODE-064",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 8.0,
+        "c4": 7.0,
+        "c5": 7.0,
+        "c6": 8.0
+      },
+      "composite": 7.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "7994882a046dcbc3",
+      "prompt_id": "PELS-L1-CODE-BE-069",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.0,
+        "c2": 9.0,
+        "c3": 9.0,
+        "c4": 9.0,
+        "c5": 7.0,
+        "c6": 9.0
+      },
+      "composite": 8.55,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "81c061fcf7cc86cd",
+      "prompt_id": "PELS-L1-CODE-069",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 9.0,
+        "c4": 7.0,
+        "c5": 7.0,
+        "c6": 7.0
+      },
+      "composite": 7.6,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "83f4a9c002becedd",
+      "prompt_id": "PELS-L1-CODE-BE-070",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.33,
+        "c2": 9.33,
+        "c3": 9.0,
+        "c4": 9.33,
+        "c5": 6.5,
+        "c6": 8.67
+      },
+      "composite": 8.62,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "8d870cad2d73e08d",
+      "prompt_id": "PELS-L1-CODE-BE-061",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 9.67,
+        "c4": 9.33,
+        "c5": 6.67,
+        "c6": 8.67
+      },
+      "composite": 8.52,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "98ee846a219a0e03",
+      "prompt_id": "PELS-L1-CODE-BE-065",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.33,
+        "c2": 9.0,
+        "c3": 10.0,
+        "c4": 9.0,
+        "c5": 8.0,
+        "c6": 8.5
+      },
+      "composite": 8.9,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "a384e91100a2977e",
+      "prompt_id": "PELS-L1-CODE-060",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 8.0,
+        "c3": 8.0,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 6.0
+      },
+      "composite": 7.65,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "a462c1c3427c5861",
+      "prompt_id": "PELS-L1-CODE-038",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 3.0,
+        "c2": 6.0,
+        "c3": 3.0,
+        "c4": 6.0,
+        "c5": 5.0,
+        "c6": 4.0
+      },
+      "composite": 4.6,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "a7b8541eb440d764",
+      "prompt_id": "PELS-L1-CODE-BE-060",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 6.5,
+        "c2": 9.0,
+        "c3": 8.67,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 8.0
+      },
+      "composite": 8.11,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "beff282e99986ed3",
+      "prompt_id": "PELS-L1-CODE-BE-054",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.0,
+        "c2": 9.33,
+        "c3": 9.67,
+        "c4": 9.33,
+        "c5": 8.0,
+        "c6": 8.5
+      },
+      "composite": 8.92,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "cd80dcd7b005953b",
+      "prompt_id": "PELS-L1-CODE-BE-055",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.67,
+        "c2": 8.33,
+        "c3": 9.33,
+        "c4": 9.33,
+        "c5": 9.33,
+        "c6": 8.67
+      },
+      "composite": 8.96,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "d339f95df27a9281",
+      "prompt_id": "PELS-L1-CODE-018",
+      "domain": "CODE",
+      "level": "weak",
+      "scores": {
+        "c1": 1.0,
+        "c2": 1.0,
+        "c3": 1.0,
+        "c4": 2.0,
+        "c5": 3.0,
+        "c6": 1.0
+      },
+      "composite": 1.5,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "d841b29e5015c001",
+      "prompt_id": "PELS-L1-CODE-068",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 7.0,
+        "c2": 9.0,
+        "c3": 8.0,
+        "c4": 8.0,
+        "c5": 8.0,
+        "c6": 7.0
+      },
+      "composite": 7.95,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "d92f91be1982cc5e",
+      "prompt_id": "PELS-L1-CODE-BE-052",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 4.33,
+        "c2": 5.0,
+        "c3": 4.67,
+        "c4": 5.33,
+        "c5": 2.5,
+        "c6": 4.5
+      },
+      "composite": 4.47,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "dd9f46746ae370f0",
+      "prompt_id": "PELS-L1-CODE-BE-080",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 2.67,
+        "c2": 8.0,
+        "c3": 6.33,
+        "c4": 6.5,
+        "c5": 3.0,
+        "c6": 2.33
+      },
+      "composite": 5.25,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "ee85821fba02f221",
+      "prompt_id": "PELS-L1-CODE-BE-058",
+      "domain": "CODE",
+      "level": "strong",
+      "scores": {
+        "c1": 8.67,
+        "c2": 9.0,
+        "c3": 9.0,
+        "c4": 9.0,
+        "c5": 8.0,
+        "c6": 8.33
+      },
+      "composite": 8.73,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "f399508effd60b6e",
+      "prompt_id": "PELS-L1-CODE-078",
+      "domain": "CODE",
+      "level": "weak",
+      "scores": {
+        "c1": 1.0,
+        "c2": 2.0,
+        "c3": 1.0,
+        "c4": 2.0,
+        "c5": 3.0,
+        "c6": 2.0
+      },
+      "composite": 1.8,
+      "score_source": "auto_mean",
+      "status": "approved"
+    },
+    {
+      "record_id": "fa4b22382c6121f0",
+      "prompt_id": "PELS-L1-CODE-048",
+      "domain": "CODE",
+      "level": "developing",
+      "scores": {
+        "c1": 3.0,
+        "c2": 5.0,
+        "c3": 2.0,
+        "c4": 6.0,
+        "c5": 4.0,
+        "c6": 5.0
+      },
+      "composite": 4.15,
+      "score_source": "auto_mean",
+      "status": "approved"
+    }
+  ]
+}

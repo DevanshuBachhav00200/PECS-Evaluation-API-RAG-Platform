@@ -130,6 +130,7 @@ def mock_benchmark_dependencies(monkeypatch: pytest.MonkeyPatch) -> dict[str, An
 
 def test_run_benchmark_output_schema_and_fields(
     mock_benchmark_dependencies: dict[str, Any],
+    tmp_path: Path,
 ) -> None:
     """
     Verify that the run_benchmark function returns a dictionary with all
@@ -137,7 +138,7 @@ def test_run_benchmark_output_schema_and_fields(
     """
     results = embedding_performance.run_benchmark(
         data_path=Path("dummy_path.csv"),
-        output_dir=Path("dummy_dir"),
+        output_dir=tmp_path,
         batch_sizes=[1, 8, 16],
         repetitions=2,
         num_records=50,
@@ -172,6 +173,7 @@ def test_run_benchmark_output_schema_and_fields(
 
 def test_run_benchmark_skips_larger_batch_sizes(
     mock_benchmark_dependencies: dict[str, Any],
+    tmp_path: Path,
 ) -> None:
     """
     If the requested batch size is larger than the number of records,
@@ -180,7 +182,7 @@ def test_run_benchmark_skips_larger_batch_sizes(
     # 10 records, batch sizes [8, 16]
     results = embedding_performance.run_benchmark(
         data_path=Path("dummy_path.csv"),
-        output_dir=Path("dummy_dir"),
+        output_dir=tmp_path,
         batch_sizes=[8, 16],
         repetitions=1,
         num_records=10,

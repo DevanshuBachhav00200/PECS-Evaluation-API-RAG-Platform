@@ -75,6 +75,7 @@ The evaluation framework uses six competency dimensions:
 ## Repository Structure
 
 ```text
+benchmark/    Benchmark harness, gold baseline, and generated report
 config/       Configuration
 data/         Dataset lifecycle
 scripts/      Data and infrastructure scripts
@@ -82,3 +83,53 @@ src/          Application source code
 tests/        Automated tests
 docs/         Technical documentation
 notebooks/    Development/analysis notebooks
+```
+
+## Quick Start
+
+```bash
+python -m venv .venv && . .venv/Scripts/activate      # Windows
+pip install -r requirements.txt -r requirements-dev.txt
+
+cp .env.example .env                                   # fill in ANTHROPIC_API_KEY and API_KEY
+python -m scripts.build_vector_store                   # populate the calibration store
+uvicorn src.api.main:app --port 9000                   # http://localhost:9000/docs
+```
+
+Containerized:
+
+```bash
+docker compose up -d --build
+docker compose exec api python -m scripts.build_vector_store
+curl -fsS http://localhost:9000/health
+```
+
+Full procedure, including deployment and rollback: [docs/deployment.md](docs/deployment.md).
+
+## Testing and Benchmarking
+
+```bash
+pytest -q                                  # 804 tests
+python -m scripts.generate_test_report     # regenerates tests/test_report.md
+python -m benchmark.run_benchmark          # BENCH-003…010
+python -m scripts.verify_container         # container verification (needs Docker)
+```
+
+- Test report: [tests/test_report.md](tests/test_report.md)
+- Benchmark report: [benchmark/benchmark_report.md](benchmark/benchmark_report.md)
+
+## Current State
+
+**Read [docs/known_issues_and_limitations.md](docs/known_issues_and_limitations.md)
+before relying on this build.** In particular:
+
+- **Grading accuracy has not been measured.** The benchmark harness is complete
+  and self-tested, but no run has been made against a live model, so there is no
+  MAE or correlation figure for this build.
+- **The calibration corpus covers one domain** (CODE, plus 10 EDGE records).
+  Submissions in the other four master domains are graded without a relevant
+  calibration example.
+- **C5 (Ethics & Safety) is weighted-only**; it vetoes nothing, pending written
+  confirmation from Alliance Compliance (EVAL-008).
+- **Nothing has been deployed**, and the container has not been built — no Docker
+  engine and no confirmed hosting target.
