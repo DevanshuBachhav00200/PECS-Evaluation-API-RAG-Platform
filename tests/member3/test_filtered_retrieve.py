@@ -66,9 +66,19 @@ DOC_D = '{"scores": {"c1": 3}, "justification": "Record D - EDGE strong"}'
 
 @pytest.fixture
 def col() -> chromadb.Collection:
-    """Isolated in-memory collection seeded with 4 records across 2 domains × 2 levels."""
+    """Isolated in-memory collection seeded with 4 records across 2 domains × 2 levels.
+
+    Drops any existing ``prompt_examples`` collection first: ephemeral ChromaDB
+    clients share one in-process database, so this module and
+    ``test_retrieval.py`` were overwriting each other's ``record-A/B/C`` vectors
+    and failing whichever ran second (Member 6, TEST-003).
+    """
     from src.vectorstore import init, upsert
     client = chromadb.EphemeralClient()
+
+    if init.COLLECTION_NAME in {c.name for c in client.list_collections()}:
+        client.delete_collection(name=init.COLLECTION_NAME)
+
     collection = init.get_or_create_collection(client)
 
     upsert.upsert_record(collection, "record-A", EMB_A, DOC_A, META_A)  # CODE / weak
@@ -76,7 +86,9 @@ def col() -> chromadb.Collection:
     upsert.upsert_record(collection, "record-C", EMB_C, DOC_C, META_C)  # CODE / strong
     upsert.upsert_record(collection, "record-D", EMB_D, DOC_D, META_D)  # EDGE / strong
 
-    return collection
+    yield collection
+
+    client.delete_collection(name=init.COLLECTION_NAME)
 
 
 # ---------------------------------------------------------------------------

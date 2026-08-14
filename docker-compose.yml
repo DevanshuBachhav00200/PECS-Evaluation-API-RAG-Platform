@@ -1,0 +1,77 @@
+# DEP-003 — ChromaDB persistence strategy for the container.
+#
+# Owner: Member 6 (Testing + Benchmarking + Docker + Deployment)
+#
+# The vector store lives on a bind-mounted host directory, not inside the image.
+# Three reasons, in order of how painful each is when ignored:
+#
+# 1. **It survives restarts and redeploys.** A store baked into the image is
+#    lost on every `docker run`, and the service silently degrades to
+#    uncalibrated grading (RAG-006) rather than failing — so the symptom is
+#    quietly worse scores, not an error anyone would notice.
+# 2. **The corpus can be extended without a rebuild.** Re-ingesting after new
+#    calibration examples land is a script run against the mounted volume, not
+#    a new image and a new deploy.
+# 3. **Image provenance stays clean.** An image carrying a copy of the corpus
+#    grades against data whose version nobody can trace from the tag.
+#
+# Acceptance (DEP-003): data ingested before a restart is still present after.
+# Verified by `python -m scripts.verify_container --check-persistence`.
+#
+#   docker compose up -d --build
+#   docker compose exec api python -m scripts.build_vector_store   # first run
+#   curl -fsS http://localhost:9000/health
+#   docker compose down && docker compose up -d    # data must still be there
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pecs-evaluation-api:1.0
+    container_name: pecs-evaluation-api
+
+    # DEP-002 — every secret arrives at runtime from the host .env, never from
+    # the image. Copy .env.example to .env and fill it in; .env is gitignored
+    # and .dockerignored.
+    env_file:
+      - .env
+
+    environment:
+      # Fixed inside the container: the store path must match the mount below.
+      CHROMA_DB_PATH: /app/Database/pels_vector_db
+      PECS_API_PORT: "9000"
+      # The model cache is pre-baked (DEP-005); refuse to reach the network for
+      # it, so a cache miss fails loudly at startup instead of downloading
+      # ~90 MB on a cold start.
+      HF_HOME: /opt/hf-cache
+      HF_HUB_OFFLINE: "1"
+
+    ports:
+      - "9000:9000"
+
+    volumes:
+      # DEP-003 — the persistent vector store.
+      - ./Database:/app/Database
+      # Read-only: the corpus is input to ingestion, and the container has no
+      # reason to write back to it.
+      - ./data:/app/data:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:9000/health"]
+      interval: 30s
+      timeout: 10s
+      # Generous: the sentence-transformer warm-load (EMB-001) takes seconds,
+      # and a start period shorter than it marks a healthy container unhealthy.
+      start_period: 90s
+      retries: 3
+
+    # The evaluator holds the whole batch plus the embedding model in memory.
+    # Stated rather than left unbounded so an OOM is a limit being hit, not a
+    # host being exhausted.
+    deploy:
+      resources:
+        limits:
+          memory: 2G

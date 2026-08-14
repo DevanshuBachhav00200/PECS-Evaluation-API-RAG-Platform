@@ -1,0 +1,15 @@
+# Development and test-only dependencies.
+#
+# Owner: Member 6 (Testing + Benchmarking + Docker + Deployment)
+#
+# Kept out of requirements.txt on purpose: that file is installed into the
+# runtime image (DEP-001), and coverage tooling in a production container is
+# weight the service never uses. HAND-003 freezes requirements.txt for release;
+# this file is not part of that freeze.
+#
+#   pip install -r requirements.txt -r requirements-dev.txt
+
+-r requirements.txt
+
+# Coverage measurement for the test report (TEST-010).
+pytest-cov
