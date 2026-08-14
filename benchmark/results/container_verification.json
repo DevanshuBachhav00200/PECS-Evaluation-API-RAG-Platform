@@ -1,0 +1,30 @@
+{
+  "status": "docker_unavailable",
+  "reason": "docker was not found on PATH. Install Docker Desktop (Windows/macOS) or docker-ce (Linux), start the engine, and re-run.",
+  "checks": [
+    {
+      "check": "build",
+      "task": "DEP-00x",
+      "passed": null,
+      "detail": "not run \u2014 docker unavailable"
+    },
+    {
+      "check": "health",
+      "task": "DEP-00x",
+      "passed": null,
+      "detail": "not run \u2014 docker unavailable"
+    },
+    {
+      "check": "persistence",
+      "task": "DEP-00x",
+      "passed": null,
+      "detail": "not run \u2014 docker unavailable"
+    },
+    {
+      "check": "secrets",
+      "task": "DEP-00x",
+      "passed": null,
+      "detail": "not run \u2014 docker unavailable"
+    }
+  ]
+}

@@ -121,10 +121,18 @@ def ingest_record(record: Dict[str, Any], collection: Any = None) -> None:
         embeddings_arr = embed_texts([student_prompt])
         embedding = embeddings_arr[0].tolist()
 
-    # 6. Idempotent upsert into the ChromaDB collection
-    collection.upsert(
-        ids=[prompt_id],
-        embeddings=[embedding],
-        documents=[document_str],
-        metadatas=[metadata_dict],
+    # 6. Idempotent upsert into the ChromaDB collection.
+    #
+    # Delegated to VDB-007's upsert_record rather than calling collection.upsert
+    # directly: VDB-007 owns duplicate-ID semantics, and a second implementation
+    # of the write here would be free to drift from it. Imported at call time
+    # because src.vectorstore.upsert imports back into this package.
+    from src.vectorstore import upsert as _upsert
+
+    _upsert.upsert_record(
+        collection=collection,
+        record_id=prompt_id,
+        embedding=embedding,
+        document=document_str,
+        metadata=metadata_dict,
     )

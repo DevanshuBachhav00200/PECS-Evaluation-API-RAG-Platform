@@ -66,6 +66,21 @@ def test_config_does_not_initialize_chromadb() -> None:
             assert node.module is not None
             assert "chromadb" not in node.module, "config.py must not import chromadb"
 
-    # 2. Verify that Database folder has not been created by get_chroma_db_path
+    # 2. Verify that get_chroma_db_path() creates no directory.
+    #
+    # Scoped to "resolution creates nothing", not "no Database/ exists anywhere":
+    # a populated store on disk is the normal state of a working checkout (it is
+    # what `python -m scripts.build_vector_store` produces, and what the
+    # container mounts), so the absolute form made this test fail for anyone who
+    # had actually built the store. Comparing before/after is the property
+    # VDB-001 promises. Amended by Member 6 (TEST-003).
     db_dir = config.REPO_ROOT / "Database"
-    assert not db_dir.exists(), "Database directory must not be created during path resolution"
+    existed_before = db_dir.exists()
+
+    resolved = config.get_chroma_db_path()
+
+    assert resolved.name == "pels_vector_db" or resolved.is_absolute()
+    assert db_dir.exists() == existed_before, (
+        "Database directory must not be created during path resolution"
+    )
+    assert not (db_dir / "created_by_config_resolution").exists()

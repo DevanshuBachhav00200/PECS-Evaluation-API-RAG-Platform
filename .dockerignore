@@ -1,0 +1,74 @@
+# DEP-006 — keep secrets and build noise out of the image and its layers.
+#
+# Owner: Member 6 (Testing + Benchmarking + Docker + Deployment)
+#
+# Anything listed here never enters the build context, so it cannot end up in a
+# layer even transiently — which matters, because a file deleted in a later
+# RUN is still present in the layer that added it and still readable via
+# `docker history` / layer extraction.
+#
+# Acceptance (DEP-006): `docker history` on the built image shows no secret
+# values. Verify with `python -m scripts.verify_container --check-secrets`.
+
+# ---- Secrets: never build these in ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*_rsa
+credentials.json
+secrets/
+
+# ---- Version control and CI ----
+.git
+.gitignore
+.github
+
+# ---- Local Python environments and caches ----
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---- Tests, benchmarks and notebooks: not runtime code ----
+tests/
+benchmark/
+notebooks/
+*.ipynb
+.ipynb_checkpoints/
+
+# ---- Data: the corpus is mounted or ingested, not baked in ----
+# Keeping data/ out matters for size (embeddings.json alone is ~3 MB) and for
+# provenance: an image with a stale copy of the corpus grades against data
+# nobody can trace. Populate the store via scripts/build_vector_store.py against
+# the mounted volume instead.
+data/
+Database/
+chroma_data/
+
+# ---- Local artifacts ----
+logs/
+*.log
+artifacts/
+outputs/
+tmp/
+temp/
+
+# ---- Editor and OS noise ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Docs: useful in the repo, dead weight in the image ----
+docs/
+*.md
+!README.md

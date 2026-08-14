@@ -58,16 +58,31 @@ DOC_C = '{"scores": {"c1": 5, "c2": 5, "c3": 5, "c4": 5, "c5": 5, "c6": 5}, "jus
 
 @pytest.fixture
 def seeded_collection() -> chromadb.Collection:
-    """Provides an isolated in-memory collection pre-seeded with 3 records."""
+    """Provides an isolated in-memory collection pre-seeded with 3 records.
+
+    ``chromadb.EphemeralClient()`` does NOT give each caller its own database:
+    clients constructed with identical settings share one in-process system, so
+    two test modules that both seed ``prompt_examples`` with ids ``record-A/B/C``
+    overwrite each other's vectors. That made this module pass alone and fail
+    when run alongside ``test_filtered_retrieve.py`` (Member 6, TEST-003:
+    "tests pass against a disposable test collection"). Dropping the collection
+    first makes the fixture disposable in fact, not just in intent.
+    """
     from src.vectorstore import init, upsert
     client = chromadb.EphemeralClient()
+
+    if init.COLLECTION_NAME in {c.name for c in client.list_collections()}:
+        client.delete_collection(name=init.COLLECTION_NAME)
+
     collection = init.get_or_create_collection(client)
 
     upsert.upsert_record(collection, "record-A", EMBEDDING_A, DOC_A, META_A)
     upsert.upsert_record(collection, "record-B", EMBEDDING_B, DOC_B, META_B)
     upsert.upsert_record(collection, "record-C", EMBEDDING_C, DOC_C, META_C)
 
-    return collection
+    yield collection
+
+    client.delete_collection(name=init.COLLECTION_NAME)
 
 
 # ---------------------------------------------------------------------------

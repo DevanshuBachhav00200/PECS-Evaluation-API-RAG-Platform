@@ -1,0 +1,5 @@
+{
+  "stage": "edge",
+  "status": "skipped",
+  "reason": "ANTHROPIC_API_KEY is not set \u2014 the in-process engine cannot reach the evaluator model. Set it in .env, or run the harness in --mode replay."
+}

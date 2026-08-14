@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "note": "Known-good outputs of the deterministic evaluation layers. Regenerate only after reading the diff: a change here means a stored evaluation from before the change no longer means the same thing.",
+  "rubric_version": "pecs-rubric-v1.0",
+  "weights": {
+    "c1": 0.15,
+    "c2": 0.2,
+    "c3": 0.2,
+    "c4": 0.2,
+    "c5": 0.15,
+    "c6": 0.1
+  },
+  "scoring": {
+    "REG-SCORE-001": {
+      "input_scores": {
+        "c1": 8,
+        "c2": 7,
+        "c3": 6,
+        "c4": 7,
+        "c5": 9,
+        "c6": 5
+      },
+      "composite_score": 7.05,
+      "skill_level": "strong",
+      "gated_composite": 7.05,
+      "gated_skill_level": "strong",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-002": {
+      "input_scores": {
+        "c1": 10,
+        "c2": 10,
+        "c3": 10,
+        "c4": 10,
+        "c5": 10,
+        "c6": 10
+      },
+      "composite_score": 10.0,
+      "skill_level": "strong",
+      "gated_composite": 10.0,
+      "gated_skill_level": "strong",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-003": {
+      "input_scores": {
+        "c1": 1,
+        "c2": 1,
+        "c3": 1,
+        "c4": 1,
+        "c5": 1,
+        "c6": 1
+      },
+      "composite_score": 1.0,
+      "skill_level": "weak",
+      "gated_composite": 1.0,
+      "gated_skill_level": "weak",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-004": {
+      "input_scores": {
+        "c1": 9,
+        "c2": 8,
+        "c3": 8,
+        "c4": 9,
+        "c5": 9,
+        "c6": 7
+      },
+      "composite_score": 8.4,
+      "skill_level": "strong",
+      "gated_composite": 8.4,
+      "gated_skill_level": "strong",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-005": {
+      "input_scores": {
+        "c1": 5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 6,
+        "c5": 7,
+        "c6": 4
+      },
+      "composite_score": 5.6,
+      "skill_level": "developing",
+      "gated_composite": 5.6,
+      "gated_skill_level": "developing",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-006": {
+      "input_scores": {
+        "c1": 2,
+        "c2": 2,
+        "c3": 3,
+        "c4": 3,
+        "c5": 4,
+        "c6": 2
+      },
+      "composite_score": 2.7,
+      "skill_level": "weak",
+      "gated_composite": 2.7,
+      "gated_skill_level": "weak",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-007": {
+      "input_scores": {
+        "c1": 9,
+        "c2": 9,
+        "c3": 9,
+        "c4": 9,
+        "c5": 2,
+        "c6": 9
+      },
+      "composite_score": 7.95,
+      "skill_level": "strong",
+      "gated_composite": 7.95,
+      "gated_skill_level": "strong",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    },
+    "REG-SCORE-008": {
+      "input_scores": {
+        "c1": 4,
+        "c2": 4,
+        "c3": 4,
+        "c4": 4,
+        "c5": 4,
+        "c6": 4
+      },
+      "composite_score": 4.0,
+      "skill_level": "developing",
+      "gated_composite": 4.0,
+      "gated_skill_level": "developing",
+      "ethics_mode": "weighted_only",
+      "ethics_triggered": false
+    }
+  },
+  "calibration_formatting": {
+    "REG-CALIB-001": "Scores: C1:8 | C2:7 | C3:9 | C4:6 | C5:10 | C6:5 → Justification: Clear task framing, weak verification step.",
+    "REG-CALIB-002": "Scores: C1:2.5 | C2:6.67 | C3:2.5 | C4:6 | C5:2.5 | C6:2.67 → Justification: Role plus audience lifts C2. No output format."
+  },
+  "batch_assembly": {
+    "REG-BATCH-001": "Evaluate the following 2 submission(s). Return one evaluations entry per submission, in this order.\n\n### Submission 1\nTask: Review an endpoint.\nCandidate prompt: List issues by severity.\nCalibration: Scores: C1:8 | C2:7 | C3:9 | C4:6 | C5:10 | C6:5 → Justification: reference example.\n\n### Submission 2\nTask: Explain recursion.\nCandidate prompt: explain recursion simply\nCalibration: Scores: C1:8 | C2:7 | C3:9 | C4:6 | C5:10 | C6:5 → Justification: reference example."
+  }
+}
